@@ -19,18 +19,16 @@ jobs:
       - name: Install Talisman
         run: |
           curl -L https://thoughtworks.github.io/talisman/install.sh | bash
-          sudo chmod +x ~/.git/hooks/pre-push
 
-      # Make sure Talisman is in the PATH
-      - name: Add Talisman to PATH
+      # Ensure .git/hooks exists and Talisman pre-push hook is installed correctly
+      - name: Create .git/hooks directory and set permissions
         run: |
-          export PATH=$PATH:~/.git/hooks
-          echo "Talisman installed to path"
+          mkdir -p ~/.git/hooks  # Ensure the .git/hooks directory exists
+          chmod +x ~/.git/hooks/pre-push  # Set executable permission for pre-push hook
 
-      # Scan the repository's commit history and current files
+      # Run Talisman scan
       - name: Run Talisman Scan on History and Current Files
         run: |
-          export PATH=$PATH:~/.git/hooks
           talisman --scan-history --scan-all --output-format text > talisman-report.txt
 
       # Display the Talisman report in the logs
