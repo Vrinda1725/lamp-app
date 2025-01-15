@@ -24,7 +24,7 @@ jobs:
       # Run Talisman scan
       - name: Run Talisman Scan on History and Current Files
         run: |
-          talisman --scan-history --scan-all --output-format text > talisman-report.txt
+          .git/hooks/pre-push --scan-history --scan-all --output-format text > talisman-report.txt
 
       # Display the Talisman report in the logs
       - name: Display Talisman Report
