@@ -3,7 +3,7 @@ name: Talisman integration
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   talisman_scan:
