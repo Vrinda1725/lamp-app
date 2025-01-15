@@ -3,7 +3,7 @@ name: Talisman integration
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   talisman_scan:
@@ -18,13 +18,18 @@ jobs:
       # Install Talisman
       - name: Install Talisman
         run: |
-          curl -L https://thoughtworks.github.io/talisman/install.sh | bash
-          chmod +x .git/hooks/pre-push
+          curl https://thoughtworks.github.io/talisman/install.sh > /tmp/install-talisman.sh
+          chmod +x /tmp/install-talisman.sh
+          pwd
+          echo "poloooo"
+          ls
+          bash /tmp/install-talisman.sh pre-commit
+          bash /tmp/install-talisman.sh pre-push
     
       # Run Talisman scan
       - name: Run Talisman Scan on History and Current Files
         run: |
-          .git/hooks/pre-push --scan-history --scan-all --output-format text > talisman-report.txt
+          talisman --scan text > talisman-report.txt
 
       # Display the Talisman report in the logs
       - name: Display Talisman Report
