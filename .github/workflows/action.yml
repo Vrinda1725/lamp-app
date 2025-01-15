@@ -20,16 +20,13 @@ jobs:
         run: |
           curl https://thoughtworks.github.io/talisman/install.sh > /tmp/install-talisman.sh
           chmod +x /tmp/install-talisman.sh
-          pwd
-          echo "poloooo"
-          ls
           bash /tmp/install-talisman.sh pre-commit
           bash /tmp/install-talisman.sh pre-push
     
       # Run Talisman scan
       - name: Run Talisman Scan on History and Current Files
         run: |
-          talisman --scan text > talisman-report.txt
+          .git/hooks/pre-push --scan text > talisman-report.txt
 
       # Display the Talisman report in the logs
       - name: Display Talisman Report
