@@ -19,13 +19,8 @@ jobs:
       - name: Install Talisman
         run: |
           curl -L https://thoughtworks.github.io/talisman/install.sh | bash
-
-      # Ensure .git/hooks exists and Talisman pre-push hook is installed correctly
-      - name: Create .git/hooks directory and set permissions
-        run: |
-          mkdir -p ~/.git/hooks  # Ensure the .git/hooks directory exists
-          chmod +x ~/.git/hooks/pre-push  # Set executable permission for pre-push hook
-
+          chmod +x .git/hooks/pre-push
+    
       # Run Talisman scan
       - name: Run Talisman Scan on History and Current Files
         run: |
